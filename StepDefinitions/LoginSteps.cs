@@ -68,6 +68,9 @@ namespace TaskManagementE2E.StepDefinitions
 
             Assert.IsTrue(_driver.Url.EndsWith("/"), "Did not navigate to dashboard.");
 
+            // Pause for 3 seconds to observe the dashboard
+            System.Threading.Thread.Sleep(3000);
+
             //_driver.Quit();
         }
     }
