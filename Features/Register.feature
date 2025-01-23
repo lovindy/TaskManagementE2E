@@ -5,7 +5,7 @@ Feature: User Registration
 
   Scenario: Successful registration with valid details
     Given I am on the registration page
-    When I enter username "newuser011"
+    When I enter username "newuser012"
     And I enter password "StrongPass123!"
     And I enter confirmation password "StrongPass123!"
     And I submit the registration form

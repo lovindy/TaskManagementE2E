@@ -105,7 +105,7 @@ namespace TaskManagementE2E.Features
     testRunner.Given("I am on the registration page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 8
-    testRunner.When("I enter username \"newuser011\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I enter username \"newuser012\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
     testRunner.And("I enter password \"StrongPass123!\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
