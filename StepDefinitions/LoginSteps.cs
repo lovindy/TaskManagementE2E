@@ -9,19 +9,19 @@ namespace TaskManagementE2E.StepDefinitions
     [Binding]
     public class LoginSteps
     {
-        private IWebDriver driver;
+        private IWebDriver _driver;
 
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://localhost:5173/login");
+            _driver = new ChromeDriver();
+            _driver.Navigate().GoToUrl("http://localhost:5173/login");
         }
 
         [When(@"I enter ""(.*)"" as username and ""(.*)"" as password")]
         public void WhenIEnterCredentials(string username, string password)
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             // Alternative to ExpectedConditions
             var usernameElement = wait.Until(d =>
@@ -46,7 +46,7 @@ namespace TaskManagementE2E.StepDefinitions
         [When(@"I click the login button")]
         public void WhenIClickTheLoginButton()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             // Alternative to ElementToBeClickable
             var loginButton = wait.Until(d =>
@@ -61,14 +61,14 @@ namespace TaskManagementE2E.StepDefinitions
         [Then(@"I should see the user dashboard after login")]
         public void ThenIShouldSeeTheUserDashboard()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
             // Wait for URL to change (assuming dashboard is at root '/')
-            wait.Until(driver => driver.Url.EndsWith("/"));
+            wait.Until(_driver => _driver.Url.EndsWith("/"));
 
-            Assert.IsTrue(driver.Url.EndsWith("/"), "Did not navigate to dashboard.");
+            Assert.IsTrue(_driver.Url.EndsWith("/"), "Did not navigate to dashboard.");
 
-            driver.Quit();
+            //_driver.Quit();
         }
     }
 }

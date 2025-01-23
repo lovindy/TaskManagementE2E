@@ -49,7 +49,7 @@ namespace TaskManagementE2E.StepDefinitions
             };
             IWebElement usernameInput = FindElementWithMultipleStrategies(usernameSelectors);
             usernameInput.Clear();
-            usernameInput.SendKeys("username-001");
+            usernameInput.SendKeys("testuser");
 
             // Find and fill password
             By[] passwordSelectors = new By[]

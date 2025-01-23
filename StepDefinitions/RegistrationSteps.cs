@@ -152,12 +152,19 @@ namespace TaskManagementE2E.StepDefinitions
         [Then(@"I should be redirected to the dashboard")]
         public void ThenIShouldBeRedirectedToDashboard()
         {
-            // Wait for dashboard URL
-            _wait.Until(d => d.Url.Contains("/"));
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
 
-            // Assert current URL is dashboard
-            StringAssert.Contains("/", _driver.Url, "Did not redirect to dashboard");
+            // Wait for URL to change (assuming dashboard is at root '/')
+            wait.Until(_driver => _driver.Url.EndsWith("/"));
+
+            Assert.IsTrue(_driver.Url.EndsWith("/"), "Did not navigate to dashboard.");
+
+            // Pause for 3 seconds to observe the dashboard
+            System.Threading.Thread.Sleep(3000);
+
+            //_driver.Quit();
         }
+
 
         // Helper method to find element using multiple strategies
         private IWebElement FindElementWithMultipleStrategies(By[] selectors)
