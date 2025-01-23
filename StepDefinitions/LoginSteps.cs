@@ -2,8 +2,9 @@
 using OpenQA.Selenium.Chrome;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
+using System;
 
-namespace MyApp.E2ETests.Steps
+namespace TaskManagementE2E.StepDefinitions
 {
     [Binding]
     public class LoginSteps
@@ -13,29 +14,51 @@ namespace MyApp.E2ETests.Steps
         [Given(@"I am on the login page")]
         public void GivenIAmOnTheLoginPage()
         {
-            // Initialize ChromeDriver (you can use another browser as well)
             driver = new ChromeDriver();
-
-            // Navigate to the local login page (port 5173)
             driver.Navigate().GoToUrl("http://localhost:5173/login");
         }
 
         [When(@"I enter ""(.*)"" as username and ""(.*)"" as password")]
         public void WhenIEnterCredentials(string username, string password)
         {
-            // Find the username and password fields and enter the test credentials
-            driver.FindElement(By.CssSelector("input[placeholder='Enter username']")).SendKeys(username);
-            driver.FindElement(By.CssSelector("input[placeholder='Enter password']")).SendKeys(password);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            // Alternative to ExpectedConditions
+            var usernameElement = wait.Until(d =>
+            {
+                var element = d.FindElement(By.CssSelector("input[placeholder='Username']"));
+                return element.Displayed ? element : null;
+            });
+
+            usernameElement.Clear();
+            usernameElement.SendKeys(username);
+
+            var passwordElement = wait.Until(d =>
+            {
+                var element = d.FindElement(By.CssSelector("input[placeholder='Password']"));
+                return element.Displayed ? element : null;
+            });
+
+            passwordElement.Clear();
+            passwordElement.SendKeys(password);
         }
 
         [When(@"I click the login button")]
         public void WhenIClickTheLoginButton()
         {
-            // Find and click the login button using its class selector
-            driver.FindElement(By.CssSelector("button.el-button--primary")).Click();
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+
+            // Alternative to ElementToBeClickable
+            var loginButton = wait.Until(d =>
+            {
+                var element = d.FindElement(By.CssSelector("button[type='button'].el-button--primary"));
+                return element.Enabled ? element : null;
+            });
+
+            loginButton.Click();
         }
 
-        [Then(@"I should see the user dashboard")]
+        [Then(@"I should see the user dashboard after login")]
         public void ThenIShouldSeeTheUserDashboard()
         {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
